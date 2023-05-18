@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage>
 
   _buildGo() {
     return Material(
-      color: Colors.white,
+      color: Colors.deepPurple,
       shape: CircleBorder(),
       child: InkWell(
         customBorder: CircleBorder(),

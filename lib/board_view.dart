@@ -32,20 +32,31 @@ class _BoardViewState extends State<BoardView> {
       children: <Widget>[
         //shadow
         Container(
-          height: size.height,
-          width: size.width,
+          height: size.height - 10,
+          width: size.width - 10,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               boxShadow: [BoxShadow(blurRadius: 20, color: Colors.black38)]),
         ),
-        Transform.rotate(
-          angle: -(widget.current + widget.angle) * 2 * pi,
-          child: Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              for (var luck in widget.items) ...[_buildCard(luck)],
-              for (var luck in widget.items) ...[_buildImage(luck)],
-            ],
+        Container(
+          height: size.height + 15,
+          width: size.width + 15,
+          decoration: BoxDecoration(
+              color: Colors.red,
+              shape: BoxShape.circle,
+              boxShadow: [BoxShadow(blurRadius: 20, color: Colors.black38)]),
+        ),
+
+        Container(
+          child: Transform.rotate(
+            angle: -(widget.current + widget.angle) * 2 * pi,
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                for (var luck in widget.items) ...[_buildCard(luck)],
+                for (var luck in widget.items) ...[_buildImage(luck)],
+              ],
+            ),
           ),
         ),
         Container(
@@ -53,17 +64,18 @@ class _BoardViewState extends State<BoardView> {
           width: size.width,
           child: ArrowView(),
         ),
+
       ],
     );
   }
 
   _buildCard(Luck luck) {
-    var _rotate = _rotote(widget.items.indexOf(luck));
-    var _angle = 2 * pi / widget.items.length;
+    var rotate = _rotote(widget.items.indexOf(luck));
+    var angle = 2 * pi / widget.items.length;
     return Transform.rotate(
-      angle: _rotate,
+      angle: rotate,
       child: ClipPath(
-        clipper: _LuckPath(_angle),
+        clipper: _LuckPath(angle),
         child: Container(
           height: size.height,
           width: size.width,
@@ -78,9 +90,9 @@ class _BoardViewState extends State<BoardView> {
   }
 
   _buildImage(Luck luck) {
-    var _rotate = _rotote(widget.items.indexOf(luck));
+    var rotate = _rotote(widget.items.indexOf(luck));
     return Transform.rotate(
-      angle: _rotate,
+      angle: rotate,
       child: Container(
         height: size.height,
         width: size.width,
